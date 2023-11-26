@@ -9,32 +9,29 @@ def second
   puts "Second function"
 end
 
-def a_func
-  puts "A function"
+def third
+  puts "Third function"
 end
 
-def b_func
-  puts "B function"
+def fourth
+  puts "Fourth function"
 end
 
 builder = MenuBuilder.new do
   add :first
   add :second
-  submenu "Submenu 1" do
-    submenu "Submenu 11" do
-      add :a_func
-    end
+
+  add_submenu "Submenu 1" do
+    add :third
   end
-  submenu "Submenu 2" do
-    add :b_func
+
+  add_submenu "Submenu 2" do
+    add :fourth
   end
 end
 
 storage = builder.storage
-runner = MenuRunner.new(storage)
 
-puts "Menu:"
-storage.print
-runner.run
+storage.execute
 
 puts "Exit from menu"
