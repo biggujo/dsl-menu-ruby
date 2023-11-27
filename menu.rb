@@ -7,11 +7,12 @@ class MenuItem
   end
 end
 
-class MenuStorage
-  attr_accessor :is_submenu
+class MenuMenu
+  attr_accessor :name, :is_submenu
   attr_reader :storage
 
-  def initialize
+  def initialize(name = "Menu")
+    @name = name
     @storage = []
     @is_submenu = false
     @is_remove_mode = false
@@ -26,8 +27,8 @@ class MenuStorage
     @storage.insert(index - 1, MenuItem.new(function_to_invoke, name))
   end
 
-  def add_submenu(name, submenu_storage)
-    @storage << { name: name, storage: submenu_storage }
+  def add_submenu(menu)
+    @storage << menu
   end
 
   def remove_at(index)
@@ -40,8 +41,8 @@ class MenuStorage
       return true
     end
 
-    if item.is_a? Hash
-      if item[:storage] && item[:storage].storage.length > 0
+    if item.is_a? MenuMenu
+      if item.storage.length > 0
         puts "There are items in submenu. Do you want to proceed? (y/n)"
 
         if gets.strip != "y"
@@ -68,16 +69,8 @@ class MenuStorage
 
   def get_item_index_by_name(name)
     @storage.each_with_index do |item, index|
-      if item.is_a? MenuItem
-        if item.to_s == name
-          return index
-        end
-      end
-
-      if item.is_a Hash
-        if item[:name] == name
-          return index
-        end
+      if item.to_s == name
+        return index
       end
     end
 
@@ -94,14 +87,9 @@ class MenuStorage
       return true
     end
 
-    if item.is_a?(Hash)
-      if item.key?(:storage)
-        item[:storage].execute
-        return true
-      else
-        send(item[:function]) if item.key?(:function)
-        return true
-      end
+    if item.is_a?(MenuMenu)
+      item.execute
+      return true
     end
 
     false
@@ -175,20 +163,16 @@ class MenuStorage
 
   def print
     @storage.each_with_index do |item, index|
-      if item.is_a?(MenuItem)
-        puts "#{index + 1} - #{item.name}"
-      else
-        puts "#{index + 1} - #{item[:name]}"
-      end
+      puts "#{index + 1} - #{item.name}"
     end
-
-    puts "X - Remove by shortcut" unless @is_remove_mode
-    puts "Y - Remove by name" unless @is_remove_mode
 
     if @is_remove_mode
       puts "0 - Exit remove mode"
       return
     end
+
+    puts "X - Remove by shortcut"
+    puts "Y - Remove by name"
 
     puts @is_submenu ? "0 - Go back" : "0 - Exit"
   end
@@ -198,7 +182,7 @@ class MenuBuilder
   attr_reader :storage
 
   def initialize(&init_block)
-    @storage = MenuStorage.new
+    @storage = MenuMenu.new
     instance_eval(&init_block) if block_given?
   end
 
@@ -213,8 +197,9 @@ class MenuBuilder
   def add_submenu(name, &block)
     submenu = MenuBuilder.new(&block)
     storage = submenu.storage
+    storage.name = name
     storage.is_submenu = true
 
-    @storage.add_submenu(name, storage)
+    @storage.add_submenu(storage)
   end
 end

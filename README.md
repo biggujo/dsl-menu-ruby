@@ -15,3 +15,5 @@
 [] bugfix/add-at-array-bounds
 
 [] feature/messages-about-what-is-happening
+
+[] Move execute() to MenuExecutioner
