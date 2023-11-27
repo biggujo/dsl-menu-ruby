@@ -18,8 +18,8 @@ def fourth
 end
 
 builder = MenuBuilder.new do
-  add :first
-  add :second
+  add :first, "First function"
+  add :second, "Second function"
 
   add_submenu "Submenu 1" do
     add :third

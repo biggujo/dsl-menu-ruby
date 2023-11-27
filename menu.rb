@@ -9,8 +9,12 @@ class MenuStorage
     @is_remove_by_index = false
   end
 
-  def add(function_to_invoke)
-    @storage << function_to_invoke
+  def add(function_to_invoke, name = nil)
+    if name.nil?
+      @storage << function_to_invoke
+    else
+      @storage << { name: name, function: function_to_invoke }
+    end
   end
 
   def add_submenu(name, submenu_storage)
@@ -175,8 +179,8 @@ class MenuBuilder
     instance_eval(&init_block) if block_given?
   end
 
-  def add(function_to_invoke)
-    @storage.add function_to_invoke
+  def add(function_to_invoke, name = nil)
+    @storage.add(function_to_invoke, name)
   end
 
   def add_submenu(name, &block)
