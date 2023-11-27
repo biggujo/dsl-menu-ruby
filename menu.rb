@@ -40,7 +40,7 @@ class MenuStorage
     end
 
     if item.is_a? Hash
-      if item[:storage].storage.length > 0
+      if item[:storage] && item[:storage].storage.length > 0
         puts "There are items in submenu. Do you want to proceed? (y/n)"
 
         if gets.strip != "y"
@@ -68,6 +68,7 @@ class MenuStorage
   def get_item_index_by_name(name)
     @storage.each_with_index do |item, index|
       if item.is_a? Symbol
+        # TODO: Change to to_s
         if item.id2name == name
           return index
         end
@@ -133,21 +134,30 @@ class MenuStorage
       item_shortcut = user_choice.to_i
       is_shortcut_correct = !item_shortcut.zero?
 
-      unless is_shortcut_correct
-        # TODO: Add proper logic for removing (@biggujo)
-        # is_in_remove_by_index = @is_remove_mode && @is_remove_by_index
-        # is_in_remove_by_position = @is_remove_mode && !@is_remove_by_index
-        # choice_is_zero = user_choice == "0"
-        #
-        # if @is_remove_mode || (is_in_remove_by_position && choice_is_zero)
-        #   puts "Leave remove mode"
-        #   @is_remove_mode = false
-        #   next
-        # end
-
-        # Exit on 0 given (0 - Return)
-        return
+      if !@is_remove_mode
+        if !is_shortcut_correct
+          # Exit on 0 given (0 - Return)
+          return
+        end
       end
+
+      if @is_remove_mode && !is_shortcut_correct
+        if @is_remove_by_index || user_choice == "0"
+          puts "Leave remove mode"
+          @is_remove_mode = false
+          next
+        end
+      end
+
+      # unless is_shortcut_correct
+      #   is_in_remove_by_index = @is_remove_mode && @is_remove_by_index
+      #   is_in_remove_by_position = @is_remove_mode && !@is_remove_by_index
+      #   choice_is_zero = user_choice == "0"
+      #
+      #   if @is_remove_mode || (is_in_remove_by_position && choice_is_zero)
+      #
+      #   end
+      # end
 
       if @is_remove_mode
         if @is_remove_by_index
