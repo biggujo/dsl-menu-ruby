@@ -1,3 +1,12 @@
+class MenuItem
+  attr_reader :function, :name
+
+  def initialize(function, name = nil)
+    @function = function
+    @name = name || function.to_s
+  end
+end
+
 class MenuStorage
   attr_accessor :is_submenu
   attr_reader :storage
@@ -10,19 +19,11 @@ class MenuStorage
   end
 
   def add(function_to_invoke, name = nil)
-    if name.nil?
-      @storage << function_to_invoke
-    else
-      @storage << { name: name, function: function_to_invoke }
-    end
+    @storage << MenuItem.new(function_to_invoke, name)
   end
 
   def add_at(index, function_to_invoke, name = nil)
-    if name.nil?
-      @storage.insert(index - 1, function_to_invoke)
-    else
-      @storage.insert(index - 1, { name: name, function: function_to_invoke })
-    end
+    @storage.insert(index - 1, MenuItem.new(function_to_invoke, name))
   end
 
   def add_submenu(name, submenu_storage)
@@ -34,7 +35,7 @@ class MenuStorage
 
     return false unless item
 
-    if item.is_a? Symbol
+    if item.is_a? MenuItem
       @storage.delete_at index
       return true
     end
@@ -67,9 +68,8 @@ class MenuStorage
 
   def get_item_index_by_name(name)
     @storage.each_with_index do |item, index|
-      if item.is_a? Symbol
-        # TODO: Change to to_s
-        if item.id2name == name
+      if item.is_a? MenuItem
+        if item.to_s == name
           return index
         end
       end
@@ -89,8 +89,8 @@ class MenuStorage
 
     return false unless item
 
-    if item.is_a?(Symbol)
-      send(item)
+    if item.is_a?(MenuItem)
+      send(item.function)
       return true
     end
 
@@ -174,11 +174,11 @@ class MenuStorage
   end
 
   def print
-    @storage.each_with_index do |value, index|
-      if value.is_a?(Symbol)
-        puts "#{index + 1} - #{value}"
+    @storage.each_with_index do |item, index|
+      if item.is_a?(MenuItem)
+        puts "#{index + 1} - #{item.name}"
       else
-        puts "#{index + 1} - #{value[:name]}"
+        puts "#{index + 1} - #{item[:name]}"
       end
     end
 
