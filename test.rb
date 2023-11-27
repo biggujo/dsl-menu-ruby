@@ -32,8 +32,10 @@ builder = MenuBuilder.new do
   end
 end
 
-storage = builder.storage
+menu = builder.menu
 
-storage.execute
+runner = MenuRunner.new(menu)
+
+runner.run
 
 puts "Exit from menu"

@@ -15,8 +15,6 @@ class MenuMenu
     @name = name
     @storage = []
     @is_submenu = false
-    @is_remove_mode = false
-    @is_remove_by_index = false
   end
 
   def add(function_to_invoke, name = nil)
@@ -69,7 +67,7 @@ class MenuMenu
 
   def get_item_index_by_name(name)
     @storage.each_with_index do |item, index|
-      if item.to_s == name
+      if item.name == name
         return index
       end
     end
@@ -88,23 +86,38 @@ class MenuMenu
     end
 
     if item.is_a?(MenuMenu)
-      item.execute
+      MenuRunner.new(item).run
       return true
     end
 
     false
   end
 
-  def execute
+  def print
+    @storage.each_with_index do |item, index|
+      puts "#{index + 1} - #{item.name}"
+    end
+  end
+end
+
+class MenuRunner
+  def initialize(menu)
+    @menu = menu
+    @is_remove_mode = false
+    @is_remove_by_index = false
+  end
+
+  def run
     loop do
-      puts @is_submenu ? "Submenu:" : "Menu"
-      print
+      puts "#{@menu.name}:"
+      @menu.print
+      print_utils
 
       printf "> "
       user_choice = gets.strip
 
       is_to_enable_remove_mode = user_choice.downcase == 'x' ||
-        user_choice.downcase == 'y' if !@is_remove_mode
+        user_choice.downcase == 'y' && !@is_remove_mode
 
       if is_to_enable_remove_mode
         puts "Enter remove mode"
@@ -122,8 +135,8 @@ class MenuMenu
       item_shortcut = user_choice.to_i
       is_shortcut_correct = !item_shortcut.zero?
 
-      if !@is_remove_mode
-        if !is_shortcut_correct
+      unless @is_remove_mode
+        unless is_shortcut_correct
           # Exit on 0 given (0 - Return)
           return
         end
@@ -149,23 +162,19 @@ class MenuMenu
 
       if @is_remove_mode
         if @is_remove_by_index
-          next if remove_at(item_shortcut - 1)
+          next if @menu.remove_at(item_shortcut - 1)
         end
 
-        next if remove_by(user_choice)
+        next if @menu.remove_by(user_choice)
       else
-        next if invoke(item_shortcut - 1)
+        next if @menu.invoke(item_shortcut - 1)
       end
 
       puts "No item with the shortcut '#{item_shortcut}' has been found"
     end
   end
 
-  def print
-    @storage.each_with_index do |item, index|
-      puts "#{index + 1} - #{item.name}"
-    end
-
+  def print_utils
     if @is_remove_mode
       puts "0 - Exit remove mode"
       return
@@ -179,27 +188,27 @@ class MenuMenu
 end
 
 class MenuBuilder
-  attr_reader :storage
+  attr_reader :menu
 
   def initialize(&init_block)
-    @storage = MenuMenu.new
+    @menu = MenuMenu.new
     instance_eval(&init_block) if block_given?
   end
 
   def add(function_to_invoke, name = nil)
-    @storage.add(function_to_invoke, name)
+    @menu.add(function_to_invoke, name)
   end
 
   def add_at(index, function_to_invoke, name = nil)
-    @storage.add_at(index, function_to_invoke, name)
+    @menu.add_at(index, function_to_invoke, name)
   end
 
   def add_submenu(name, &block)
     submenu = MenuBuilder.new(&block)
-    storage = submenu.storage
+    storage = submenu.menu
     storage.name = name
     storage.is_submenu = true
 
-    @storage.add_submenu(storage)
+    @menu.add_submenu(storage)
   end
 end
