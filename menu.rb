@@ -86,8 +86,13 @@ class MenuStorage
     end
 
     if item.is_a?(Hash)
-      item[:storage].execute
-      return true
+      if item.key?(:storage)
+        item[:storage].execute
+        return true
+      else
+        send(item[:function]) if item.key?(:function)
+        return true
+      end
     end
 
     false
