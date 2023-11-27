@@ -4,6 +4,10 @@
 
 [] add custom names for items;
 
-[x] getters/setters by index (e.g. remove 2, remove 1)
+[x] remove_at
+
+[] remove_by_name
+
+[] add_at
 
 [] add docs
