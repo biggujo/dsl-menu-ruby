@@ -150,16 +150,6 @@ class MenuRunner
         end
       end
 
-      # unless is_shortcut_correct
-      #   is_in_remove_by_index = @is_remove_mode && @is_remove_by_index
-      #   is_in_remove_by_position = @is_remove_mode && !@is_remove_by_index
-      #   choice_is_zero = user_choice == "0"
-      #
-      #   if @is_remove_mode || (is_in_remove_by_position && choice_is_zero)
-      #
-      #   end
-      # end
-
       if @is_remove_mode
         if @is_remove_by_index
           next if @menu.remove_at(item_shortcut - 1)
@@ -206,6 +196,7 @@ class MenuBuilder
   def add_submenu(name, &block)
     submenu = MenuBuilder.new(&block)
     storage = submenu.menu
+
     storage.name = name
     storage.is_submenu = true
 
