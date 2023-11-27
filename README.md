@@ -14,6 +14,8 @@
 
 [x] bugfix/add-at-array-bounds
 
-[] feature/messages-about-what-is-happening
+[x] feature/messages-about-what-is-happening
+
+[x] Add proper system "clear"
 
 [x] Move execute() to MenuExecutioner

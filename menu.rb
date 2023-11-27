@@ -1,3 +1,5 @@
+require 'rainbow'
+
 class MenuItem
   attr_reader :function, :name
 
@@ -103,7 +105,7 @@ class MenuMenu
 
   def print
     @storage.each_with_index do |item, index|
-      puts "#{index + 1} - #{item.name}"
+      puts "  #{index + 1} - #{item.name}"
     end
   end
 end
@@ -116,10 +118,10 @@ class MenuRunner
   end
 
   def run
+    system "clear"
+
     loop do
-      puts "#{@menu.name}:"
-      @menu.print
-      print_utils
+      print_all
 
       printf "> "
       user_choice = gets.strip
@@ -128,7 +130,6 @@ class MenuRunner
         user_choice.downcase == 'y' && !@is_remove_mode
 
       if is_to_enable_remove_mode
-        puts "Enter remove mode"
         @is_remove_mode = true
 
         if user_choice.downcase == 'x'
@@ -152,8 +153,10 @@ class MenuRunner
 
       if @is_remove_mode && !is_shortcut_correct
         if @is_remove_by_index || user_choice == "0"
-          puts "Leave remove mode"
           @is_remove_mode = false
+
+          system "clear" if @menu.is_submenu
+
           next
         end
       end
@@ -168,20 +171,35 @@ class MenuRunner
         next if @menu.invoke(item_shortcut - 1)
       end
 
-      puts "No item with the shortcut '#{item_shortcut}' has been found"
+      puts "No item with the shortcut '#{user_choice}' has been found"
     end
+  end
+
+  def print_all
+    puts Rainbow("#{@menu.name}:").cyan.bright
+
+    mode = "Normal"
+
+    if @is_remove_mode
+      mode = "Remove By"
+      mode += @is_remove_by_index ? " Shortcut" : " Name"
+    end
+
+    puts "Mode: #{mode}"
+    @menu.print
+    print_utils
   end
 
   def print_utils
     if @is_remove_mode
-      puts "0 - Exit remove mode"
+      puts Rainbow("0 - Exit remove mode").magenta
       return
     end
 
-    puts "X - Remove by shortcut"
-    puts "Y - Remove by name"
+    puts Rainbow("X - Remove by shortcut").green
+    puts Rainbow("Y - Remove by name").green
 
-    puts @is_submenu ? "0 - Go back" : "0 - Exit"
+    puts Rainbow(@menu.is_submenu ? "0 - Go back" : "0 - Exit").magenta
   end
 end
 

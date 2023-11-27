@@ -18,17 +18,20 @@ def fourth
 end
 
 builder = MenuBuilder.new do
-  add :first
-  add :second, "Second function"
+  add :first, "My First Function"
+  add :second, "A Second Function"
 
-  add_at 2, :third, "Third function"
+  add_at 2, :third, "A Third Function"
 
   add_submenu "Submenu 1" do
-    add :third
+    add :third, "A Third Function"
+    add :first, "My First Function"
+    add :fourth, "A Fourth Function"
   end
 
   add_submenu "Submenu 2" do
-    add :fourth
+    add :fourth, "A Fourth Function"
+    add :second, "A Second Function"
   end
 end
 
