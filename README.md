@@ -6,14 +6,14 @@
 
 [x] remove_at
 
-[] remove_by_name
+[x] remove_by_name
 
 [x] add_at
 
 [] add docs
 
-[] bugfix/add-at-array-bounds
+[x] bugfix/add-at-array-bounds
 
 [] feature/messages-about-what-is-happening
 
-[] Move execute() to MenuExecutioner
+[x] Move execute() to MenuExecutioner
