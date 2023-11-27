@@ -17,6 +17,14 @@ class MenuStorage
     end
   end
 
+  def add_at(index, function_to_invoke, name = nil)
+    if name.nil?
+      @storage.insert(index - 1, function_to_invoke)
+    else
+      @storage.insert(index - 1, { name: name, function: function_to_invoke })
+    end
+  end
+
   def add_submenu(name, submenu_storage)
     @storage << { name: name, storage: submenu_storage }
   end
@@ -186,6 +194,10 @@ class MenuBuilder
 
   def add(function_to_invoke, name = nil)
     @storage.add(function_to_invoke, name)
+  end
+
+  def add_at(index, function_to_invoke, name = nil)
+    @storage.add_at(index, function_to_invoke, name)
   end
 
   def add_submenu(name, &block)

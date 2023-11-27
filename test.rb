@@ -21,6 +21,8 @@ builder = MenuBuilder.new do
   add :first
   add :second, "Second function"
 
+  add_at 2, :third, "Third function"
+
   add_submenu "Submenu 1" do
     add :third
   end
