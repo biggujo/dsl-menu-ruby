@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rainbow (3.1.1)
+
+PLATFORMS
+  arm64-darwin-22
+
+DEPENDENCIES
+  rainbow
+
+BUNDLED WITH
+   2.4.21
