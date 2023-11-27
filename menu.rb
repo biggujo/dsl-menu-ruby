@@ -1,9 +1,11 @@
 class MenuStorage
   attr_accessor :is_submenu
+  attr_reader :storage
 
   def initialize
     @storage = []
     @is_submenu = false
+    @is_remove_mode = false
   end
 
   def add(function_to_invoke)
@@ -11,7 +13,33 @@ class MenuStorage
   end
 
   def add_submenu(name, submenu_storage)
-    @storage << { name: name, add_submenu: submenu_storage }
+    @storage << { name: name, storage: submenu_storage }
+  end
+
+  def remove_at(index)
+    item = @storage[index]
+
+    return false unless item
+
+    if item.is_a? Symbol
+      @storage.delete_at index
+      return true
+    end
+
+    if item.is_a? Hash
+      if item[:storage].storage.length > 0
+        puts "There are items in submenu. Do you want to proceed? (y/n)"
+
+        if gets.strip != "y"
+          return true
+        end
+
+        puts "Abort"
+      end
+
+      @storage.delete_at index
+      true
+    end
   end
 
   def invoke(index)
@@ -25,7 +53,7 @@ class MenuStorage
     end
 
     if item.is_a?(Hash)
-      item[:add_submenu].execute
+      item[:storage].execute
       return true
     end
 
@@ -38,14 +66,37 @@ class MenuStorage
       print
 
       printf "> "
-      item_by_shortcut = gets.to_i
+      user_choice = gets.strip
 
-      # Exit on 0 given (0 - Return)
-      return if item_by_shortcut.zero?
+      is_to_enable_remove_mode = user_choice.downcase == 'x' if !@is_remove_mode
 
-      unless invoke(item_by_shortcut - 1)
-        puts "No function with the shortcut '#{item_by_shortcut}' has been found"
+      if is_to_enable_remove_mode
+        puts "Enter remove mode"
+        @is_remove_mode = true
+        next
       end
+
+      item_shortcut = user_choice.to_i
+      is_shortcut_correct = !item_shortcut.zero?
+
+      unless is_shortcut_correct
+        if @is_remove_mode
+          puts "Leave remove mode"
+          @is_remove_mode = false
+          next
+        end
+
+        # Exit on 0 given (0 - Return)
+        return
+      end
+
+      if @is_remove_mode
+        next if remove_at(item_shortcut - 1)
+      else
+        next if invoke(item_shortcut - 1)
+      end
+
+      puts "No item with the shortcut '#{item_shortcut}' has been found"
     end
   end
 
@@ -57,7 +108,15 @@ class MenuStorage
         puts "#{index + 1} - #{value[:name]}"
       end
     end
-    puts @is_submenu ? "0 - Go back" : "0 - Quit"
+
+    puts "X - Remove" unless @is_remove_mode
+
+    if @is_remove_mode
+      puts "0 - Exit remove mode"
+      return
+    end
+
+    puts @is_submenu ? "0 - Go back" : "0 - Exit"
   end
 end
 
