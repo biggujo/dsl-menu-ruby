@@ -1,5 +1,3 @@
-# dsl-menu-ruby
-
 # Description
 
 MenuBuilder is a DSL-based Ruby library for effortless creation of dynamic user menus in your programs. With a simple API, you can generate menus based on method invocation.
@@ -122,7 +120,7 @@ Print additional utility menu items to work with menu.
 
 E.g. it prints exit shortcut and shortcuts to enter remove modes.
 
-## MenuBuilder(&init_block)
+## `MenuBuilder(&init_block)`
 
 Provides a way to configure menu in one block with usage of `instance_eval`.
 
@@ -148,9 +146,20 @@ Works exactly like `MenuMenu`'s method.
 
 Works like `MenuMenu`'s method, but creates a submenu instance with a provided `name` using `&block` first and adds it to menu.
 
-# Examples
+# Advanced Examples
+
+##
 
 # Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 # TODO:
 
