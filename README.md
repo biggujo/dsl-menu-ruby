@@ -114,7 +114,7 @@ Prints menu items
 
 - [x] add_at
 
-- [] add docs
+- [ ] add docs
 
 - [x] bugfix/add-at-array-bounds
 
@@ -122,4 +122,4 @@ Prints menu items
 
 - [x] Add proper system "clear"
 
-[x] Move execute() to MenuExecutioner
+- [x] Move execute() to MenuExecutioner
