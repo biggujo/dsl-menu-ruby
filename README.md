@@ -106,20 +106,20 @@ Prints menu items
 
 ## TODO:
 
-[x] add custom names for items;
+- [x] add custom names for items;
 
-[x] remove_at
+- [x] remove_at
 
-[x] remove_by_name
+- [x] remove_by_name
 
-[x] add_at
+- [x] add_at
 
-[] add docs
+- [] add docs
 
-[x] bugfix/add-at-array-bounds
+- [x] bugfix/add-at-array-bounds
 
-[x] feature/messages-about-what-is-happening
+- [x] feature/messages-about-what-is-happening
 
-[x] Add proper system "clear"
+- [x] Add proper system "clear"
 
 [x] Move execute() to MenuExecutioner
