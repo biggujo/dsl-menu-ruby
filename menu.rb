@@ -204,11 +204,15 @@ class MenuRunner
 end
 
 class MenuBuilder
-  attr_reader :menu
+  attr_accessor :menu
 
   def initialize(&init_block)
     @menu = MenuMenu.new
     instance_eval(&init_block) if block_given?
+  end
+
+  def modify(&block)
+    instance_eval(&block) if block_given?
   end
 
   def add(function_to_invoke, name = nil)
