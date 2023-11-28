@@ -19,11 +19,11 @@ class MenuMenu
     @is_submenu = false
   end
 
-  def add(function_to_invoke, name = nil)
-    @storage << MenuItem.new(function_to_invoke, name)
+  def add(function, name = nil)
+    @storage << MenuItem.new(function, name)
   end
 
-  def add_at(index, function_to_invoke, name = nil)
+  def add_at(index, function, name = nil)
     if index < 0
       index = 0
     end
@@ -32,7 +32,7 @@ class MenuMenu
       index = @storage.length
     end
 
-    @storage.insert(index, MenuItem.new(function_to_invoke, name))
+    @storage.insert(index, MenuItem.new(function, name))
   end
 
   def add_submenu(menu)
