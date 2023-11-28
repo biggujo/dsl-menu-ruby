@@ -45,7 +45,7 @@ runner.run
 
 ## Classes
 
-### MenuItem.new(function, name = nil)
+### `MenuItem.new(function, name = nil)`
 
 Represents an a `function` with a `name` alias.
 
@@ -56,7 +56,7 @@ Designed for internal use.
 - `function` - is either a symbol or a function real name (access: read).
 - `name` - an alias for a function in menu (access: read).
 
-### MenuMenu(name = "Menu")
+### `MenuMenu(name = "Menu")`
 
 Represents a menu object stores all `MenuItem` and other `MenuMenu`.
 
@@ -68,35 +68,35 @@ Represents a menu object stores all `MenuItem` and other `MenuMenu`.
 
 #### Methods
 
-##### add(function, name = nil) -> nil
+##### `add(function, name = nil) -> nil`
 
 Adds a `function` to the storage with a provided `alias`.
 
-##### add_at(index, function_to_invoke, name = nil) -> nil
+##### `add_at(index, function_to_invoke, name = nil) -> nil`
 
 Adds a `function` to the storage with a provided `alias` at index `index`.
 
-##### add_submenu(menu) -> nil
+##### `add_submenu(menu) -> nil`
 
 Adds a `menu` to the storage as submenu, where `menu` is a `MenuMenu` instance.
 
-##### remove_at(index) -> TrueClass | FalseClass
+##### `remove_at(index) -> TrueClass | FalseClass`
 
 Removes an item from the menu by `index`. Returns `true` on success, otherwise `false`.
 
-##### remove_by(name) -> TrueClass | FalseClass
+##### `remove_by(name) -> TrueClass | FalseClass`
 
 Removes an item from the menu by `name` as String. Returns `true` on success, otherwise `false`.
 
-##### get_item_index_by_name(name) -> Integer | nil
+##### `get_item_index_by_name(name) -> Integer | nil`
 
 Returns an index of an item by the `name`, otherwise `nil` on search failure.
 
-##### invoke(index) -> TrueClass | FalseClass
+##### `invoke(index) -> TrueClass | FalseClass`
 
 Invokes an item by the `index`. Returns `true` if success, otherwise `false`.
 
-##### print -> nil
+##### `print -> nil`
 
 Prints menu items
 
