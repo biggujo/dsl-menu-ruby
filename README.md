@@ -151,8 +151,6 @@ Works like `MenuMenu`'s method, but creates a submenu instance with a provided `
 
 # Advanced Examples
 
-##
-
 # Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
