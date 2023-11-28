@@ -238,7 +238,11 @@ menu.add_at(0, :third)
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-# TODO:
+# License
+
+[MIT License](LICENSE).
+
+# TODO
 
 - [x] add custom names for items;
 
@@ -248,8 +252,6 @@ menu.add_at(0, :third)
 
 - [x] add_at
 
-- [ ] add docs
-
 - [x] bugfix/add-at-array-bounds
 
 - [x] feature/messages-about-what-is-happening
@@ -257,4 +259,5 @@ menu.add_at(0, :third)
 - [x] Add proper system "clear"
 
 - [x] Move execute() to MenuExecutioner
-- 
+
+- [x] add docs
