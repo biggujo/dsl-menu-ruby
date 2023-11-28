@@ -1,18 +1,24 @@
-# Description
+# Menu Worker DSL
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-MenuBuilder is a DSL-based Ruby library for effortless creation of dynamic user menus in your programs. With a simple API, you can generate menus based on method invocation.
+Menu Worker DSL is a DSL-based Ruby library for effortless creation of dynamic user menus in your programs. With a simple API, you can generate menus based on method invocation.
 
-# Used technologies
+## Used technologies
 
 - Ruby (with DSL implementation);
-- `rainbow` gem
+- `rainbow` gem.
+
+## Faced Challenges
+
+- proper implementation of DSL approaches;
+- handling corner cases;
+- functionality expansion.
 
 # Quick Start
 
-Just do `require` on a file:
+Just download the `menu.rb` to your project and do `require`:
 
 ```ruby
 require "./menu"
@@ -21,7 +27,7 @@ require "./menu"
 And paste this below example to get started:
 
 ```ruby
-# Just some examples
+# Just some example functions
 def first; puts "First function"; end
 def second; puts "Second function"; end
 def third; puts "Third function"; end
@@ -151,6 +157,68 @@ Works like `MenuMenu`'s method, but creates a submenu instance with a provided `
 
 # Advanced Examples
 
+## Convenient Menu Modification
+
+```ruby
+def first; puts "First function"; end
+def second; puts "Second function"; end
+
+builder = MenuBuilder.new do
+  # ...
+end
+
+# Do some actions in code
+# Then decide to add some items 
+
+builder.modify do
+  add_at 3, :first, "Very Good Function"
+  add :second
+end
+
+```
+
+## Remove Items One By One
+
+```ruby
+def first; puts "First function"; end
+def second; puts "Second function"; end
+def third; puts "Third function"; end
+
+builder = MenuBuilder.new do
+  add :first, "My First Function"
+  add :second, "My Second Function"
+
+  add_submenu "My Submenu" do
+    add :third # Add with default name
+  end
+end
+
+menu = builder.menu
+
+menu.remove_at(0)
+menu.remove_at(1)
+menu.remove_by("My Third Function")
+```
+
+## Future Work Without MenuBuilder Usage
+
+Notice: This way is less convenient as there is no way to use blocks.
+
+```ruby
+def first; puts "First function"; end
+def second; puts "Second function"; end
+def third; puts "Third function"; end
+
+builder = MenuBuilder.new do
+  add :first, "My First Function"
+end
+
+menu = builder.menu
+
+menu.add(:second)
+menu.add_at(0, :third)
+```
+
 # Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -170,7 +238,11 @@ Works like `MenuMenu`'s method, but creates a submenu instance with a provided `
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-# TODO:
+# License
+
+[MIT License](LICENSE).
+
+# TODO
 
 - [x] add custom names for items;
 
@@ -180,8 +252,6 @@ Works like `MenuMenu`'s method, but creates a submenu instance with a provided `
 
 - [x] add_at
 
-- [ ] add docs
-
 - [x] bugfix/add-at-array-bounds
 
 - [x] feature/messages-about-what-is-happening
@@ -190,15 +260,4 @@ Works like `MenuMenu`'s method, but creates a submenu instance with a provided `
 
 - [x] Move execute() to MenuExecutioner
 
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+- [x] add docs
