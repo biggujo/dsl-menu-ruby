@@ -175,6 +175,8 @@ class MenuRunner
     end
   end
 
+  private
+
   def print_all
     puts Rainbow("#{@menu.name}:").cyan.bright
 
@@ -215,12 +217,12 @@ class MenuBuilder
     instance_eval(&block) if block_given?
   end
 
-  def add(function_to_invoke, name = nil)
-    @menu.add(function_to_invoke, name)
+  def add(function, name = nil)
+    @menu.add(function, name)
   end
 
-  def add_at(index, function_to_invoke, name = nil)
-    @menu.add_at(index, function_to_invoke, name)
+  def add_at(index, function, name = nil)
+    @menu.add_at(index, function, name)
   end
 
   def add_submenu(name, &block)
