@@ -1,7 +1,7 @@
 # Menu Worker DSL
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+![language](https://img.shields.io/badge/language-ruby-orange?style=flat)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg)](#contributors-)
+
 
 Menu Worker DSL is a DSL-based Ruby library for effortless creation of dynamic user menus in your programs. With a simple API, you can generate menus based on method invocation.
 
