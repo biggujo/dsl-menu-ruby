@@ -16,6 +16,15 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "AndrasteCries",
+      "name": "Oleksandr Shynkarenko",
+      "avatar_url": "https://avatars.githubusercontent.com/u/57036990?v=4",
+      "profile": "https://github.com/AndrasteCries",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
