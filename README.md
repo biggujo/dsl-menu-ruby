@@ -161,7 +161,7 @@ Works like `MenuMenu`'s method, but creates a submenu instance with a provided `
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/biggujo"><img src="https://avatars.githubusercontent.com/u/37770603?v=4?s=100" width="100px;" alt="Dmytro Ivashchenko"/><br /><sub><b>Dmytro Ivashchenko</b></sub></a><br /><a href="https://github.com/biggujo/dsl-menu-ruby/commits?author=biggujo" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/biggujo"><img src="https://avatars.githubusercontent.com/u/37770603?v=4?s=100" width="100px;" alt="Dmytro Ivashchenko"/><br /><sub><b>Dmytro Ivashchenko</b></sub></a><br /><a href="https://github.com/biggujo/dsl-menu-ruby/commits?author=biggujo" title="Code">💻</a> <a href="https://github.com/biggujo/dsl-menu-ruby/commits?author=biggujo" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
