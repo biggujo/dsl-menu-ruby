@@ -54,7 +54,7 @@ runner.run
 
 ## `MenuItem.new(function, name = nil)`
 
-Represents an a `function` with a `name` alias.
+Represents a `function` with a `name` alias.
 
 Designed for internal use.
 
@@ -116,6 +116,8 @@ Gives an interface to runs the provided `menu`.
 #### `run -> nil`
 
 Runs the provided `menu` in CLI mode.
+
+This method shows one of possible ways to create CLI for the menu usage.
 
 ### Private Methods
 

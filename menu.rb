@@ -1,14 +1,19 @@
 require 'rainbow'
 
+# Represents an function with a name alias.
+# It is used in menu as an item.
 class MenuItem
   attr_reader :function, :name
 
   def initialize(function, name = nil)
     @function = function
+
+    # Set name as a function.to_s if no name is provided
     @name = name || function.to_s
   end
 end
 
+# Menu storage with properties
 class MenuMenu
   attr_accessor :name, :is_submenu
   attr_reader :storage
@@ -19,10 +24,12 @@ class MenuMenu
     @is_submenu = false
   end
 
+  # Add to the end of the @storage
   def add(function, name = nil)
     @storage << MenuItem.new(function, name)
   end
 
+  # Add at index
   def add_at(index, function, name = nil)
     if index < 0
       index = 0
@@ -50,6 +57,7 @@ class MenuMenu
     end
 
     if item.is_a? MenuMenu
+      # Do additional ask if it is okay to remove non-empty submenu
       if item.storage.length > 0
         puts "There are items in submenu. Do you want to proceed? (y/n)"
 
@@ -117,6 +125,7 @@ class MenuRunner
     @is_remove_by_index = false
   end
 
+  # Runners runs some CLI with custom business logic
   def run
     system "clear"
 
@@ -151,7 +160,9 @@ class MenuRunner
         end
       end
 
+      # If remove mode in on with incorrect shortcut
       if @is_remove_mode && !is_shortcut_correct
+        # And if choice to go back
         if @is_remove_by_index || user_choice == "0"
           @is_remove_mode = false
 
@@ -161,6 +172,7 @@ class MenuRunner
         end
       end
 
+      # Do the required task
       if @is_remove_mode
         if @is_remove_by_index
           next if @menu.remove_at(item_shortcut - 1)
@@ -171,12 +183,16 @@ class MenuRunner
         next if @menu.invoke(item_shortcut - 1)
       end
 
+      # Print an error if any
       puts "No item with the shortcut '#{user_choice}' has been found"
     end
   end
 
+  # Below are located private utility methods help to print things
+
   private
 
+  # Print menu in stylish mode
   def print_all
     puts Rainbow("#{@menu.name}:").cyan.bright
 
@@ -192,6 +208,7 @@ class MenuRunner
     print_utils
   end
 
+  # Print additional utility menu items to work with menu
   def print_utils
     if @is_remove_mode
       puts Rainbow("0 - Exit remove mode").magenta
@@ -205,6 +222,7 @@ class MenuRunner
   end
 end
 
+# Builder to configure menu with a block
 class MenuBuilder
   attr_accessor :menu
 
